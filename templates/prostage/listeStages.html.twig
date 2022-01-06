@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+
+{% block tablehead %}
+    <p>Stage : </p>
+    {% for stage in listeStages %}
+        <p>Stage : {{stage.titre}}</p>
+        <p>Stage : {{stage.id}}</p>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block tablehead %}
+    <p>Stage : </p>
+    {% for entreprise in listeEntreprises %}
+        <p>Stage : {{entreprise.nom}}</p>
+        <p>Stage : {{entreprise.id}}</p>
+    {% endfor %}
+
+{% endblock %}

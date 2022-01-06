@@ -20,24 +20,28 @@ class AppFixtures extends Fixture
 
         $entreprise->setNom($faker->company);
         echo "test:";
-        // var_dump($faker->catchPhrase);
-        //Faker->bs et ->catchPhrase ne renvoient rien
-        $entreprise->setActivite("Informatique");
+        var_dump($faker->jobTitle);
+        //Faker->bs ne renvoient rien
+        $entreprise->setActivite($faker->catchPhrase);
         $entreprise->setAdresse($faker->address);
 
+        // A completer par moi
         $formation->setNomLong("DUT Informatique");
         $formation->setNomCourt("DUT Infor");
 
         $stage->setTitre($faker->jobTitle);
-        $stage->setDomaine($faker->);
+        $stage->setDomaine($faker->catchPhrase);
         $stage->setEmail($faker->email);
-
-        $stage->setEntrepriseId($faker->);
         $stage->setDescription($faker->realText($maxNbChars = 200, $indexSize = 2));
 
 
+        $entreprise->addStage($stage);
+        $formation->addStage($stage);
+        $stage->addFormation($formation);
+       
         $manager->persist($formation);
         $manager->persist($entreprise);
+        $manager->persist($stage);
 
         $manager->flush();
     }
