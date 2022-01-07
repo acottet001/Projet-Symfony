@@ -29,7 +29,7 @@ class ProStageController extends AbstractController
 
         $listeEntreprises = $repositoryEntreprise->findAll();
 
-        return $this->render('prostage/entreprises.html.twig', ['listeEntreprises' => $listeEntreprises]);
+        return $this->render('prostage/listeEntreprises.html.twig', ['listeEntreprises' => $listeEntreprises]);
     }
 
     /**
@@ -41,7 +41,7 @@ class ProStageController extends AbstractController
 
         $listeFormations = $repositoryFormation->findAll();
 
-        return $this->render('prostage/formations.html.twig', ['listeFormations' => $listeFormations]);
+        return $this->render('prostage/listeFormations.html.twig', ['listeFormations' => $listeFormations]);
     }
 
     /**
@@ -53,7 +53,7 @@ class ProStageController extends AbstractController
 
         $listeStages = $repositoryStage->findAll();
        
-        return $this->render('prostage/stages.html.twig',['listeStages' => $listeStages]);
+        return $this->render('prostage/listeStages.html.twig',['listeStages' => $listeStages]);
     }
 
     /**
@@ -63,12 +63,33 @@ class ProStageController extends AbstractController
     {
         $repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
 
-        $listeStages = $repositoryStage->find($id);
-        var_dump($id);
-        var_dump($listeStages);
+        $stage = $repositoryStage->find($id);
        
-        return $this->render('prostage/stages2.html.twig',['listeStages' => $listeStages]);
+        return $this->render('prostage/stage.html.twig',['stage' => $stage]);
     }
 
+    /**
+     * @Route("/entreprises/{id}", name="entreprise")
+     */
+    public function indexEntreprise($id=""): Response
+    {
+        $repositorEntreprise = $this->getDoctrine()->getRepository(Entreprise::class);
+
+        $entreprise = $repositoryEntreprise->find($id);
+       
+        return $this->render('prostage/entreprise.html.twig',['entreprise' => $entreprise]);
+    }
+
+    /**
+     * @Route("/formations/{id}", name="formation")
+     */
+    public function indexFormation($id=""): Response
+    {
+        $repositorFormation = $this->getDoctrine()->getRepository(Formation::class);
+
+        $formation = $repositoryFormation->find($id);
+       
+        return $this->render('prostage/formation.html.twig',['formation' => $formation]);
+    }
     
 }
