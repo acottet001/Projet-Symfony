@@ -12,15 +12,18 @@
   <body>
     <body>
         <header>
-            <img src="logo de Pro Stage" alt="logo de Pro Stage">
-            <ul>
-                <li><p>Rechercher par :</p></li>
-                <li><a href="{{path('accueil_du_site')}}">Accueil</a></li>
-                <li><a href="{{path('liste_des_formations')}}">Formations</a></li>
-                <li><a href="{{path('liste_des_entreprises')}}">Entreprises</a></li>
-            </ul>
+            <center><a href="{{path('accueil_du_site')}}"><img src="/img/prostage.png" alt="logo_du_site"></a></center>
+            <nav class="navbar navbar-light bg-light">
+                <form class="form-inline">
+                    <a href="{{path('accueil_du_site')}}"><button class="btn btn-outline-success" type="button">Stages</button></a>
+                    <a href="{{path('liste_des_formations')}}"><button class="btn btn-outline-success" type="button">Formations</button></a>
+                    <a href="{{path('liste_des_entreprises')}}"><button class="btn btn-sm btn-outline-secondary" type="button">Entreprise</button></a>
+                </form>
+            </nav>
         </header>
        
+       {% block texte %}
+       {% endblock %}
 
         <div class="container-fluid">
             <div class="row">

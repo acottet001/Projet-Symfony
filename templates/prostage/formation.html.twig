@@ -1,5 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-<h1>Cette page affichera la liste des formations de l'IUT</h1>
+{% block texte %}
+
+    <p>Nom long de la formation : {{formation.nomLong}}</p>
+    <p>Nom court de la formation : {{formation.nomCourt}}</p>
+
+{% endblock %}
+
+{% block tablehead %}
+    <tr>
+        <th scope="col">Poste</th>
+        <th scope="col">Domaine</th>
+        <th scope="col">Entreprise</th>
+        <th scope="col">Lien</th>
+    </tr>
+{% endblock %}
+
+{% block tablebody %}
+    {% for stage in formation.stages %}
+        <tr>
+            <td scope="row">{{stage.titre}}</td>
+            <td>{{stage.domaine}}</td>
+            <td>{{stage.entreprise.nom}}</td>
+            <td><a href="{{path('stage')}}/{{stage.id}}"><button type="button" class="btn btn-outline-primary">En savoir plus</button></td>
+        </tr>
+    {% endfor %}
 {% endblock %}

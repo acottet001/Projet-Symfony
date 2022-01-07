@@ -1,10 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block tablehead %}
-    <p>Stage : </p>
-    {% for entreprise in listeEntreprises %}
-        <p>Stage : {{entreprise.nom}}</p>
-        <p>Stage : {{entreprise.id}}</p>
-    {% endfor %}
+{% block texte %}
+    <p>Nom de l'entreprise : {{entreprise.nom}}</p>
+    <p>Activite de l'entreprise : {{entreprise.activite}}</p>
+    <p>Adresse de l'entreprise : {{entreprise.adresse}}</p>
+    <p>Site Web de l'entreprise : A changer dans la BD</p>
+{% endblock %}
 
+{% block tablehead %}
+    <tr>
+        <th scope="col">Titre</th>
+        <th scope="col">Domaine</th>
+        <th scope="col">Formation</th>
+        <th scope="col">Lien</th>
+    </tr>
+{% endblock %}
+
+{% block tablebody %}
+    {% for stage in entreprise.stages %}
+        <tr>
+            <td scope="row">{{stage.titre}}</td>
+            <td>{{stage.domaine}}</td>
+
+            {% for formation in stage.formation %}
+                <td>{{formation.nomCourt}}</td>
+            {% endfor %}
+            <td>{{stage.entreprise.nom}}</td>
+
+            <td><a href="{{path('stage')}}/{{stage.id}}"><button type="button" class="btn btn-outline-primary">En savoir plus</button></td>
+        </tr>
+    {% endfor %}
 {% endblock %}

@@ -73,7 +73,7 @@ class ProStageController extends AbstractController
      */
     public function indexEntreprise($id=""): Response
     {
-        $repositorEntreprise = $this->getDoctrine()->getRepository(Entreprise::class);
+        $repositoryEntreprise = $this->getDoctrine()->getRepository(Entreprise::class);
 
         $entreprise = $repositoryEntreprise->find($id);
        
@@ -85,7 +85,7 @@ class ProStageController extends AbstractController
      */
     public function indexFormation($id=""): Response
     {
-        $repositorFormation = $this->getDoctrine()->getRepository(Formation::class);
+        $repositoryFormation = $this->getDoctrine()->getRepository(Formation::class);
 
         $formation = $repositoryFormation->find($id);
        

@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-
-{% block tablehead %}
-    <p>Stage : </p>
-    {% for stage in listeStages %}
-        <p>Stage : {{stage.titre}}</p>
-        <p>Stage : {{stage.id}}</p>
+{% block texte %}
+    <p>Poste : {{stage.titre}}<p>
+    <p>Domaine : {{stage.domaine}}<p>
+    <p>Description : {{stage.description}}<p>
+    <p>Email : {{stage.email}}<p>
+    <p>Entreprise : {{stage.entreprise.nom}}<p>
+    {% for formation in stage.formation %}
+        <td>{{formation.nomCourt}}</td>
     {% endfor %}
-
 {% endblock %}
