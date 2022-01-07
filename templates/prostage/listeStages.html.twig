@@ -2,10 +2,26 @@
 
 
 {% block tablehead %}
-    <p>Stage : </p>
+    <tr>
+      <th scope="col">Poste</th>
+      <th scope="col">Domaine</th>
+      <th scope="col">Entreprise</th>
+      <th scope="col">Formation/s</th>
+    </tr>
+
+{% endblock %}
+
+{% block tablebody %}
     {% for stage in listeStages %}
-        <p>Stage : {{stage.titre}}</p>
-        <p>Stage : {{stage.id}}</p>
+        <tr>
+            <th scope="row">{{stage.titre}}</th>
+            <td>{{stage.domaine}}</td>
+            <td>{{stage.entreprise.nom}}</td>
+            {% for formation in stage.formation %}
+                <td>{{formation.nomCourt}}</td>
+            {% endfor %}
+            <td><a href="{{path('stage')}}/{{stage.id}}"><button type="button" class="btn btn-outline-primary">En savoir plus</button></td>
+        </tr>
     {% endfor %}
 
 {% endblock %}

@@ -1,10 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block tablehead %}
-    <p>Stage : </p>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Activité</th>
+      <th scope="col">Ville Adresse</th>
+    </tr>
+
+{% endblock %}
+
+{% block tablebody %}
     {% for entreprise in listeEntreprises %}
-        <p>Stage : {{entreprise.nom}}</p>
-        <p>Stage : {{entreprise.id}}</p>
+        <tr>
+            <th scope="row">{{entreprise.nom}}</th>
+            <td>{{entreprise.activite}}</td>
+            <td>{{entreprise.adresse}}</td>
+            <td><a href="{{path('entreprise')}}/{{entreprise.id}}"><button type="button" class="btn btn-outline-primary">En savoir plus</button></td>
+        </tr>
     {% endfor %}
 
 {% endblock %}

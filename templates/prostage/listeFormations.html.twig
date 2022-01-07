@@ -1,5 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-<h1>Cette page affichera la liste des formations de l'IUT</h1>
+{% block tablehead %}
+    <tr>
+      <th scope="col">Nom Court</th>
+      <th scope="col">Nom Long</th>
+    </tr>
+
+{% endblock %}
+
+{% block tablebody %}
+    {% for formation in listeFormations %}
+        <tr>
+            <th scope="row">{{formation.nomCourt}}</th>
+            <td>{{formation.nomLong}}</td>
+            <td><a href="{{path('formation')}}/{{formation.id}}"><button type="button" class="btn btn-outline-primary">En savoir plus</button></td>
+        </tr>
+    {% endfor %}
+
 {% endblock %}
