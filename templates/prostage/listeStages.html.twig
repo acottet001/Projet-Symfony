@@ -17,9 +17,9 @@
         <tr>
             <th scope="row">{{stage.titre}}</th>
             <td>{{stage.domaine}}</td>
-            <td>{{stage.entreprise.nom}}</td>
+            <td><a href="{{path('entreprise')}}/{{stage.entreprise.id}}">{{stage.entreprise.nom}}</a></td>
             {% for formation in stage.formation %}
-                <td>{{formation.nomCourt}}</td>
+                <td><a href="{{path('formation')}}/{{formation.id}}">{{formation.nomCourt}}</a></td>
             {% endfor %}
             <td><a href="{{path('stage')}}/{{stage.id}}"><button type="button" class="btn btn-outline-primary">En savoir plus</button></td>
         </tr>
