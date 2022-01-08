@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block texte %}
-    <p>Poste : {{stage.titre}}<p>
-    <p>Domaine : {{stage.domaine}}<p>
-    <p>Description : {{stage.description}}<p>
-    <p>Email : {{stage.email}}<p>
-    <p>Entreprise : {{stage.entreprise.nom}}<p>
+    <p>Poste : {{stage.titre}}</p>
+    <p>Domaine : {{stage.domaine}}</p>
+    <p>Description : {{stage.description}}</p>
+    <p>Email : {{stage.email}}</p>
+    <a href="{{path('entreprise')}}/{{stage.entreprise.id}}">Entreprise : {{stage.entreprise.nom}}</a>
     {% for formation in stage.formation %}
-        <td>{{formation.nomCourt}}</td>
+       <p><a href="{{path('formation')}}/{{formation.id}}">{{formation.nomCourt}}</a></p>
     {% endfor %}
 {% endblock %}
