@@ -16,7 +16,11 @@ class AppFixtures extends Fixture
 
         $stage = new Stage();
         $entreprise = new Entreprise();
+        $listeEntreprises = array();
         $formation = new Formation();
+        $listeFormations = array();
+        $nbEntreprises = 10;
+        $nbStages = 10;
 
         $activiteEntrepriseDisponibles = array(
             "Logistique",
@@ -42,28 +46,35 @@ class AppFixtures extends Fixture
             ["LP Eco","Licence Professionnelle Economie"]
         ];
 
+        for($i = 0; $i < $nbStages; $i++)
+        {
+            $stage->setTitre($faker->jobTitle);
+            $stage->setDomaine($faker->$activiteEntrepriseDisponibles[$numActivite]);
+            $stage->setEmail($faker->email);
+            $stage->setDescription($faker->realText($maxNbChars = 200, $indexSize = 2));
+            $stages = 
+        }
+
         foreach($nomFormationsDisponibles as $nomFormationDisponible)
         {
             $formation->setNomLong($nomFormationDisponible[0]);
             $formation->setNomCourt($nomFormationDisponible[1]);
+            $listeFormations[] = $formation;
+        }
+
+        for($i = 0; $i < $nbEntreprises; $i++)
+        {
+            //Faker->bs ne renvoient rien
+            $entreprise->setNom($faker->company);
+            $numActivite = faker->numberBetween(0,8);
+            $entreprise->setActivite($activiteEntrepriseDisponibles[$numActivite]);
+            $entreprise->setAdresse($faker->address);
+            //$entreprise->setUrlSiteWeb($faker->url);
+            $listeEntreprises[] = $entreprise;
         }
         
-        for($)
-        $entreprise->setNom($faker->company);
 
-        //Faker->bs ne renvoient rien
-        $numActivite = faker->numberBetween(0,8);
-        $entreprise->setActivite($activiteEntrepriseDisponibles[$numActivite]);
-        $entreprise->setAdresse($faker->address);
-
-        $numFormation = faker->numberBetween(0,8);
-        $formation->setNomLong($nomFormationsDisponibles[$numFormation][0]);
-        $formation->setNomCourt($nomFormationsDisponibles[$numFormation][1]);
-
-        $stage->setTitre($faker->jobTitle);
-        $stage->setDomaine($faker->$activiteEntrepriseDisponibles[$numActivite]);
-        $stage->setEmail($faker->email);
-        $stage->setDescription($faker->realText($maxNbChars = 200, $indexSize = 2));
+        
 
 
         $entreprise->addStage($stage);
