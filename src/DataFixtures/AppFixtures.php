@@ -20,6 +20,7 @@ class AppFixtures extends Fixture
         $formation = new Formation();
         $listeFormations = array();
         $nbEntreprises = 10;
+        $listeEntreprises = array();
         $nbStages = 10;
 
         $activiteEntrepriseDisponibles = array(
@@ -46,44 +47,51 @@ class AppFixtures extends Fixture
             ["LP Eco","Licence Professionnelle Economie"]
         ];
 
-        for($i = 0; $i < $nbStages; $i++)
-        {
-            $stage->setTitre($faker->jobTitle);
-            $stage->setDomaine($faker->$activiteEntrepriseDisponibles[$numActivite]);
-            $stage->setEmail($faker->email);
-            $stage->setDescription($faker->realText($maxNbChars = 200, $indexSize = 2));
-            $stages = 
-        }
-
         foreach($nomFormationsDisponibles as $nomFormationDisponible)
         {
-            $formation->setNomLong($nomFormationDisponible[0]);
-            $formation->setNomCourt($nomFormationDisponible[1]);
+            $formation = new Formation();
+            $formation->setNomCourt($nomFormationDisponible[0]);
+            $formation->setNomLong($nomFormationDisponible[1]);
+            $manager->persist($formation);
             $listeFormations[] = $formation;
         }
+
 
         for($i = 0; $i < $nbEntreprises; $i++)
         {
             //Faker->bs ne renvoient rien
+            $entreprise = new Entreprise();
             $entreprise->setNom($faker->company);
-            $numActivite = faker->numberBetween(0,8);
-            $entreprise->setActivite($activiteEntrepriseDisponibles[$numActivite]);
+            $numActivite = $faker->numberBetween(0,8);
+            $entreprise->setActivite($faker->randomElement($activiteEntrepriseDisponibles));
             $entreprise->setAdresse($faker->address);
             //$entreprise->setUrlSiteWeb($faker->url);
+            $manager->persist($entreprise);
             $listeEntreprises[] = $entreprise;
         }
-        
 
-        
+        for($i = 0; $i < $nbStages; $i++)
+        {
+            $stage->setTitre($faker->jobTitle);
+            $stage->setDomaine($faker->randomElement($activiteEntrepriseDisponibles));
+            $stage->setEmail($faker->email);
+            $stage->setDescription($faker->realText($maxNbChars = 200, $indexSize = 2));
 
+            $numEnteprise = $faker->numberBetween(0,$nbEntreprises);
+            
+            $listeEntreprises[$numEnteprise]->addStage($stage);
+            $manager->persist($listeEntreprises[$numEnteprise]);
 
-        $entreprise->addStage($stage);
-        $formation->addStage($stage);
-        $stage->addFormation($formation);
-       
-        $manager->persist($formation);
-        $manager->persist($entreprise);
-        $manager->persist($stage);
+            $nbrFormations = $faker->numberBetween(0,$nbEntreprises-1);
+
+            foreach($faker->randomElements($listeFormations, $nbrFormations) as $formation)
+            {
+                $stage->addFormation($formation);
+                $manager->persist($formation);
+            }
+            
+            $manager->persist($stage);
+        }
 
         $manager->flush();
 
