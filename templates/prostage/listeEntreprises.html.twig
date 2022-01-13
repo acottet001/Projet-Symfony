@@ -16,7 +16,7 @@
             <th scope="row">{{entreprise.nom}}</th>
             <td>{{entreprise.activite}}</td>
             <td>{{entreprise.adresse}}</td>
-            <td><a href="{{path('entreprise')}}/{{entreprise.id}}"><button type="button" class="btn btn-outline-primary">En savoir plus</button></td>
+            <td><a href="{{path('prostage_detail_entreprise_par_id' , {'id' : entreprise.id}) }}"><button type="button" class="btn btn-outline-primary">En savoir plus</button></td>
         </tr>
     {% endfor %}
 

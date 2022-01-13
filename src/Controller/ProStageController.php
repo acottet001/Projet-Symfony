@@ -10,10 +10,14 @@ use App\Entity\Entreprise;
 use App\Entity\Formation;
 use App\Entity\Stage;
 
+use App\Repository\EntrepriseRepository;
+use App\Repository\FormationRepository;
+use App\Repository\StageRepository;
+
 class ProStageController extends AbstractController
 {
     /**
-     * @Route("/", name="accueil_du_site")
+     * @Route("/", name="prostage_accueil_du_site")
      */
     public function index(): Response
     {
@@ -21,75 +25,66 @@ class ProStageController extends AbstractController
     }
 
     /**
-     * @Route("/entreprises", name="liste_des_entreprises")
+     * @Route("/entreprises", name="prostage_liste_des_entreprises")
      */
-    public function indexListeEntreprises(): Response
+    public function afficherListeEntreprises(EntrepriseRepository $repositoryEntreprise): Response
     {
-        $repositoryEntreprise = $this->getDoctrine()->getRepository(Entreprise::class);
-
+        // Récupérer toutes les entreprises enregistrées en BD
         $listeEntreprises = $repositoryEntreprise->findAll();
 
+        // Envoyer les entreprises récupérées à la vue chargée de l'afficher
         return $this->render('prostage/listeEntreprises.html.twig', ['listeEntreprises' => $listeEntreprises]);
     }
 
     /**
-     * @Route("/formations", name="liste_des_formations")
+     * @Route("/formations", name="prostage_liste_des_formations")
      */
-    public function indexListeFormations(): Response
+    public function afficherListeFormations(FormationRepository $repositoryFormation): Response
     {
-        $repositoryFormation = $this->getDoctrine()->getRepository(Formation::class);
-
+        // Récupérer toutes les formations enregistrées en BD
         $listeFormations = $repositoryFormation->findAll();
 
+        // Envoyer les formations récupérées à la vue chargée de l'afficher
         return $this->render('prostage/listeFormations.html.twig', ['listeFormations' => $listeFormations]);
     }
 
     /**
-     * @Route("/stages/", name="liste_des_stages")
+     * @Route("/stages/", name="prostage_liste_des_stages")
      */
-    public function indexListeStages(): Response
+    public function afficherListeStages(StageRepository $repositoryStage): Response
     {
-        $repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
-
+        // Récupérer tous les stages enregistrés en BD
         $listeStages = $repositoryStage->findAll();
-       
+
+       // Envoyer les stages récupérées à la vue chargée de l'afficher
         return $this->render('prostage/listeStages.html.twig',['listeStages' => $listeStages]);
     }
 
     /**
-     * @Route("/stages/{id}", name="stage")
+     * @Route("/stages/{id}", name="prostage_detail_stage_par_id")
      */
-    public function indexStages($id=""): Response
+    public function afficherDetailStage(Stage $stage): Response
     {
-        $repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
-
-        $stage = $repositoryStage->find($id);
-       
-        return $this->render('prostage/stage.html.twig',['stage' => $stage]);
+        // Envoyer le stage récupérée à la vue chargée de l'afficher
+        return $this->render('prostage/detailStage.html.twig',['stage' => $stage]);
     }
 
     /**
-     * @Route("/entreprises/{id}", name="entreprise")
+     * @Route("/entreprises/{id}", name="prostage_detail_entreprise_par_id")
      */
-    public function indexEntreprise($id=""): Response
+    public function afficherDetailEntreprise(Entreprise $entreprise): Response
     {
-        $repositoryEntreprise = $this->getDoctrine()->getRepository(Entreprise::class);
-
-        $entreprise = $repositoryEntreprise->find($id);
-       
-        return $this->render('prostage/entreprise.html.twig',['entreprise' => $entreprise]);
+        // Envoyer l'entreprise récupérée, à la vue chargée de l'afficher
+        return $this->render('prostage/detailEntreprise.html.twig',['entreprise' => $entreprise]);
     }
 
     /**
-     * @Route("/formations/{id}", name="formation")
+     * @Route("/formations/{id}", name="prostage_detail_formation_par_id")
      */
-    public function indexFormation($id=""): Response
+    public function afficherDetailFormation(Formation $formation): Response
     {
-        $repositoryFormation = $this->getDoctrine()->getRepository(Formation::class);
-
-        $formation = $repositoryFormation->find($id);
-       
-        return $this->render('prostage/formation.html.twig',['formation' => $formation]);
+        // Envoyer la formation récupérée, à la vue chargée de l'afficher
+        return $this->render('prostage/detailFormation.html.twig',['formation' => $formation]);
     }
     
 }

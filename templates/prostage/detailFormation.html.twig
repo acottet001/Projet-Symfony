@@ -21,8 +21,8 @@
         <tr>
             <td scope="row">{{stage.titre}}</td>
             <td>{{stage.domaine}}</td>
-            <td><a href="{{path('entreprise')}}/{{stage.entreprise.id}}">{{stage.entreprise.nom}}<a></td>
-            <td><a href="{{path('stage')}}/{{stage.id}}"><button type="button" class="btn btn-outline-primary">En savoir plus</button></td>
+            <td><a href="{{path('prostage_detail_entreprise_par_id' , { 'id' :stage.entreprise.id}) }}">{{stage.entreprise.nom}}<a></td>
+            <td><a href="{{path('prostage_detail_stage_par_id' , {'id' : stage.id}) }}"><button type="button" class="btn btn-outline-primary">En savoir plus</button></td>
         </tr>
     {% endfor %}
 {% endblock %}

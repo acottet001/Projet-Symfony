@@ -14,7 +14,7 @@
         <tr>
             <th scope="row">{{formation.nomCourt}}</th>
             <td>{{formation.nomLong}}</td>
-            <td><a href="{{path('formation')}}/{{formation.id}}"><button type="button" class="btn btn-outline-primary">En savoir plus</button></td>
+            <td><a href="{{path('prostage_detail_formation_par_id', {'id' : formation.id}) }}"><button type="button" class="btn btn-outline-primary">En savoir plus</button></td>
         </tr>
     {% endfor %}
 

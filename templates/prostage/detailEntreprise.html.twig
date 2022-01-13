@@ -1,0 +1,38 @@
+{% extends 'header.html.twig' %}
+
+{% block titre %}
+    <h3>{{entreprise.nom}}</h3>
+{% endblock %}
+
+{% block attribut %}
+    <li class="list-group-item">Nom de l'entreprise : {{entreprise.nom}}</li>
+    <li class="list-group-item">Activite de l'entreprise : {{entreprise.activite}}</li>
+    <li class="list-group-item">Adresse de l'entreprise : {{entreprise.adresse}}</li>
+    <li class="list-group-item">Site Web de l'entreprise : A changer dans la BD</li>
+    <li class="list-group-item">
+        {% block tablehead %}
+            <tr>
+                <th scope="col">Titre</th>
+                <th scope="col">Domaine</th>
+                <th scope="col">Formation</th>
+                <th scope="col">Lien</th>
+            </tr>
+        {% endblock %}
+        {% block tablebody %}
+            {% for stage in entreprise.stages %}
+                <tr>
+                    <td scope="row">{{stage.titre}}</td>
+                    <td>{{stage.domaine}}</td>
+
+                    <td>
+                    {% for formation in stage.formation %}
+                        <a href="{{path('prostage_detail_formation_par_id' , {'id' : formation.id}) }}">{{formation.nomCourt}}</a><br>
+                    {% endfor %}
+                    </td>
+
+                    <td><a href="{{path('prostage_detail_stage_par_id' , {'id' : stage.id}) }}"><button type="button" class="btn btn-outline-primary">En savoir plus</button></td>
+                </tr>
+            {% endfor %}
+        {% endblock %}
+    </li>
+{% endblock %}

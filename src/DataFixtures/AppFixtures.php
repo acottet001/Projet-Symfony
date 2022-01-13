@@ -14,10 +14,7 @@ class AppFixtures extends Fixture
     {
         $faker = \Faker\Factory::create('fr_FR');
 
-        $stage = new Stage();
-        $entreprise = new Entreprise();
         $listeEntreprises = array();
-        $formation = new Formation();
         $listeFormations = array();
         $nbEntreprises = 10;
         $listeEntreprises = array();
@@ -72,19 +69,20 @@ class AppFixtures extends Fixture
 
         for($i = 0; $i < $nbStages; $i++)
         {
+            $stage = new Stage();
             $stage->setTitre($faker->jobTitle);
             $stage->setDomaine($faker->randomElement($activiteEntrepriseDisponibles));
             $stage->setEmail($faker->email);
             $stage->setDescription($faker->realText($maxNbChars = 200, $indexSize = 2));
 
-            $numEnteprise = $faker->numberBetween(0,$nbEntreprises);
+            $stageEntreprise = $faker->randomElement($listeEntreprises);
             
-            $listeEntreprises[$numEnteprise]->addStage($stage);
-            $manager->persist($listeEntreprises[$numEnteprise]);
+            $stageEntreprise->addStage($stage);
+            $manager->persist($stageEntreprise);
 
-            $nbrFormations = $faker->numberBetween(0,$nbEntreprises-1);
+            $nbrFormations = $faker->numberBetween(0,2);
 
-            foreach($faker->randomElements($listeFormations, $nbrFormations) as $formation)
+            foreach($faker->randomElements($listeFormations, $nbrFormations + 1) as $formation)
             {
                 $stage->addFormation($formation);
                 $manager->persist($formation);

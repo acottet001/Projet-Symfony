@@ -1,0 +1,22 @@
+
+{% extends 'pageDetail.html.twig' %}
+
+{% block titre %}
+    Poste : {{stage.titre}}
+{% endblock %}
+
+{% block attribut %}
+    <li class="list-group-item">Domaine : {{stage.domaine}}</li>
+    
+    <li class="list-group-item">Description : {{stage.description}}</li>
+    
+    <li class="list-group-item">Email : {{stage.email}}</li>
+    
+    <li class="list-group-item">Entreprise : <a href="{{path('prostage_detail_entreprise_par_id', {'id' : stage.entreprise.id}) }}">{{stage.entreprise.nom}}</a></li>
+
+    <li class="list-group-item">Formation/s :
+    {% for formation in stage.formation %}
+       <a href="{{path('prostage_detail_formation_par_id', {'id' : formation.id}) }}">{{formation.nomCourt}}</a><br>
+    {% endfor %}
+    </li>
+{% endblock %}
