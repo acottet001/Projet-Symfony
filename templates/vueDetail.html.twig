@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    {% block card %}
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                {% block pageDetail %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>{% block titre %}{% endblock %}</h3>
+                        </div>
+
+                        <ul class="list-group list-group-flush">
+                            {% block attribut %}
+                            {% endblock %}
+                                
+                            {% block tableau %}
+                                <div class="card-header">
+                                    <h3>Stage/s</h3>
+                                </div>
+                                <li class="list-group-item"> 
+                                    <table class="table table-bordered table-striped table-light">
+                                        <thead>
+                                            {% block tablehead %}
+                                            {% endblock %}
+                                        </thead>
+                                        <tbody>
+                                            {% block tablebody %}
+                                            {% endblock %}
+                                        </tbody>
+                                    </table> 
+                                </li>   
+                            {% endblock %}
+                            
+                           
+                        </ul>
+
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}
+
+      

@@ -1,9 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'vueDetail.html.twig' %}
 
-{% block texte %}
+{% block titre %}
+     {{formation.nomLong}}
+{% endblock %}
 
-    <p>Nom long de la formation : {{formation.nomLong}}</p>
-    <p>Nom court de la formation : {{formation.nomCourt}}</p>
+
+{% block attribut %}
+
+    <li class="list-group-item">Nom long de la formation : {{formation.nomLong}}</li>
+    <li class="list-group-item">Nom court de la formation : {{formation.nomCourt}}</li>
 
 {% endblock %}
 

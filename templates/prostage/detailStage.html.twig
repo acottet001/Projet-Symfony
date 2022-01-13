@@ -1,5 +1,5 @@
 
-{% extends 'pageDetail.html.twig' %}
+{% extends 'vueDetail.html.twig' %}
 
 {% block titre %}
     Poste : {{stage.titre}}
@@ -19,4 +19,6 @@
        <a href="{{path('prostage_detail_formation_par_id', {'id' : formation.id}) }}">{{formation.nomCourt}}</a><br>
     {% endfor %}
     </li>
+{% endblock %}
+{% block tableau %}
 {% endblock %}
