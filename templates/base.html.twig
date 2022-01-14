@@ -16,31 +16,28 @@
         <div class="container-fluid ">
             
             <header>
-                <center><a href="{{path('prostage_accueil_du_site')}}"><img src="/img/prostage.png" alt="logo_du_site"></a></center>
+                <center><a href="{{path('prostage_accueil_du_site')}}"><img src="/img/prostage2.png" alt="logo_du_site"></a></center>
             
                 <div class="row justify-content-center">
                     <div class="col-md-10">
-                        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                            <a class="navbar-brand" href="{{path('prostage_accueil_du_site')}}">Prostage</a>
-
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-
-                            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                                <div class="navbar-nav">
-                                    <a class="nav-item nav-link" href="{{path('prostage_liste_des_stages')}}">Stages</a>
-                                    <a class="nav-item nav-link" href="{{path('prostage_liste_des_formations')}}">Formation</a>
-                                    <a class="nav-item nav-link" href="{{path('prostage_liste_des_entreprises')}}">Entreprise</a>
-                                </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>ProStage</h5>
+                                Rechercher par : 
+                                <a href="{{path('prostage_liste_des_entreprises') }}" class="btn btn-primary">Entreprises</a>
+                                <a href="{{path('prostage_liste_des_formations') }}" class="btn btn-primary">Formations </a>
+                                <a href="{{path('prostage_liste_des_stages') }}" class="btn btn-primary">Stages</a>
                             </div>
-                        </nav>
+                            <div class="card-body">
+                                {% block body %}
+                                {% endblock %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>
         <div>
-        {% block body %}
-        {% endblock %}
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 

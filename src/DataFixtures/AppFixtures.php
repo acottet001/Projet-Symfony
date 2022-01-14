@@ -83,7 +83,7 @@ class AppFixtures extends Fixture
             $entreprise->setActivite($faker->randomElement($activiteEntrepriseDisponibles));
             $entreprise->setAdresse($faker->address);
 
-            //$entreprise->setUrlSiteWeb($faker->url);
+            $entreprise->setUrlSiteWeb($faker->url);
             
             // On ajoute la formation dans les données dans Doctrine
             $manager->persist($entreprise);

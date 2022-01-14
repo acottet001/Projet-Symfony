@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page d'accueil de prostages{% endblock %}
 
 {% block body %}
-
-<h1>Bienvenue sur la page d'accueil de Prostages</h1>
+    <h1>Bienvenue sur la page d'accueil de Prostage</h1>
+    <center><h5>Que souhaitez vous faire ?</h5>
+    <h6>Consulter : </h6>
+    <a href="{{path('prostage_liste_des_entreprises') }}" class="btn btn-primary">La liste des Entreprises</a>
+    <a href="{{path('prostage_liste_des_formations') }}" class="btn btn-primary">La liste des Formations </a>
+    <a href="{{path('prostage_liste_des_stages') }}" class="btn btn-primary">La liste des Stages</a></center>
 
 {% endblock %}

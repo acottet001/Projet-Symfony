@@ -27,6 +27,8 @@ class ProStageController extends AbstractController
     /**
      * @Route("/entreprises", name="prostage_liste_des_entreprises")
      */
+    // Récupération du repository des formations grâce à l'injection 
+    // de la dépendance de EntrepriseRepository
     public function afficherListeEntreprises(EntrepriseRepository $repositoryEntreprise): Response
     {
         // Récupérer toutes les entreprises enregistrées en BD
@@ -39,6 +41,8 @@ class ProStageController extends AbstractController
     /**
      * @Route("/formations", name="prostage_liste_des_formations")
      */
+    // Récupération du repository des formations grâce à l'injection 
+    // de la dépendance de FormationRepository
     public function afficherListeFormations(FormationRepository $repositoryFormation): Response
     {
         // Récupérer toutes les formations enregistrées en BD
@@ -51,6 +55,8 @@ class ProStageController extends AbstractController
     /**
      * @Route("/stages/", name="prostage_liste_des_stages")
      */
+    // Récupération du repository des stages grâce à l'injection
+    // de la dépendance de StageRepository
     public function afficherListeStages(StageRepository $repositoryStage): Response
     {
         // Récupérer tous les stages enregistrés en BD
@@ -63,6 +69,8 @@ class ProStageController extends AbstractController
     /**
      * @Route("/stages/{id}", name="prostage_detail_stage_par_id")
      */
+    // Récupération du stage grâce à l'injection 
+    // de la dépendance de Stage et l'id de la route
     public function afficherDetailStage(Stage $stage): Response
     {
         // Envoyer le stage récupérée à la vue chargée de l'afficher
@@ -72,6 +80,8 @@ class ProStageController extends AbstractController
     /**
      * @Route("/entreprises/{id}", name="prostage_detail_entreprise_par_id")
      */
+    // Récupération de l'entreprise grâce à l'injection 
+    // de la dépendance de l'Entreprise et l'id de la route
     public function afficherDetailEntreprise(Entreprise $entreprise): Response
     {
         // Envoyer l'entreprise récupérée, à la vue chargée de l'afficher
@@ -81,6 +91,8 @@ class ProStageController extends AbstractController
     /**
      * @Route("/formations/{id}", name="prostage_detail_formation_par_id")
      */
+    // Récupération de la formation grâce à l'injection 
+    // de la dépendance de la Formation et l'id de la route
     public function afficherDetailFormation(Formation $formation): Response
     {
         // Envoyer la formation récupérée, à la vue chargée de l'afficher

@@ -10,24 +10,37 @@
     <li class="list-group-item">Nom long de la formation : {{formation.nomLong}}</li>
     <li class="list-group-item">Nom court de la formation : {{formation.nomCourt}}</li>
 
-{% endblock %}
 
-{% block tablehead %}
-    <tr>
-        <th scope="col">Poste</th>
-        <th scope="col">Domaine</th>
-        <th scope="col">Entreprise</th>
-        <th scope="col">Lien</th>
-    </tr>
-{% endblock %}
-
-{% block tablebody %}
-    {% for stage in formation.stages %}
-        <tr>
-            <td scope="row">{{stage.titre}}</td>
-            <td>{{stage.domaine}}</td>
-            <td><a href="{{path('prostage_detail_entreprise_par_id' , { 'id' :stage.entreprise.id}) }}">{{stage.entreprise.nom}}<a></td>
-            <td><a href="{{path('prostage_detail_stage_par_id' , {'id' : stage.id}) }}"><button type="button" class="btn btn-outline-primary">En savoir plus</button></td>
-        </tr>
-    {% endfor %}
+    {% if formation.stages is empty %}
+        <div class="card-header">
+            <h3>Cette entreprise n'a pas de stage pour le moment</h3>
+        </div>
+    {% else %}
+        <div class="card-header">
+            <h3>Stage/s</h3>
+        </div>
+        <li class="list-group-item"> 
+            <table class="table table-bordered table-striped table-light">
+                <thead>
+                    <tr>
+                        <th scope="col">Poste</th>
+                        <th scope="col">Domaine</th>
+                        <th scope="col">Entreprise</th>
+                        <th scope="col">Lien</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stage in formation.stages %}
+                        <tr>
+                            <td scope="row">{{stage.titre}}</td>
+                            <td>{{stage.domaine}}</td>
+                            <td><a href="{{path('prostage_detail_entreprise_par_id' , { 'id' :stage.entreprise.id}) }}">{{stage.entreprise.nom}}<a></td>
+                            <td><a href="{{path('prostage_detail_stage_par_id' , {'id' : stage.id}) }}"><button type="button" class="btn btn-outline-primary">En savoir plus</button></td>
+                        </tr>
+                    {% endfor %}
+                <tbody>
+            </table>
+        </li>
+    
+    {% endif %}
 {% endblock %}

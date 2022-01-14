@@ -35,6 +35,11 @@ class Entreprise
     private $adresse;
 
     /**
+     * @ORM\Column(type="string", length=200)
+     */
+    private $urlSiteWeb;
+
+    /**
      * @ORM\OneToMany(targetEntity=Stage::class, mappedBy="entreprise")
      */
     private $stages;
@@ -82,6 +87,18 @@ class Entreprise
     public function setAdresse(string $adresse): self
     {
         $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getUrlSiteWeb(): ?string
+    {
+        return $this->urlSiteWeb;
+    }
+
+    public function setUrlSiteWeb(string $urlSiteWeb): self
+    {
+        $this->urlSiteWeb = $urlSiteWeb;
 
         return $this;
     }
