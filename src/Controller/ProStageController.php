@@ -60,7 +60,7 @@ class ProStageController extends AbstractController
     public function afficherListeStages(StageRepository $repositoryStage): Response
     {
         // Récupérer tous les stages enregistrés en BD
-        $listeStages = $repositoryStage->findAll();
+        $listeStages = $repositoryStage->recupererStageAvecSonEntrepriseQB();
 
        // Envoyer les stages récupérées à la vue chargée de l'afficher
         return $this->render('prostage/listeStages.html.twig',['listeStages' => $listeStages]);
@@ -98,5 +98,36 @@ class ProStageController extends AbstractController
         // Envoyer la formation récupérée, à la vue chargée de l'afficher
         return $this->render('prostage/detailFormation.html.twig',['formation' => $formation]);
     }
+    
+
+    /**
+     * @Route("/stagesParFormationDQL/{nomCourt}", name="prostageListeStagesParNomCourtFormation_DQL")
+     */
+    // Récupération de la formation grâce à l'injection 
+    // de la dépendance de la Formation et l'id de la route
+    public function listeStageParNomCourtFormation(StageRepository $repositoryStage, $nomCourt): Response
+    {
+        
+        $listeStages = $repositoryStage->findByFormationDQL($nomCourt);
+
+        // Envoyer la formation récupérée, à la vue chargée de l'afficher
+        return $this->render('prostage/listeStages.html.twig',['listeStages' => $listeStages]);
+    }
+
+    /**
+     * @Route("/stagesParEntrepriseQB/{nom}", name="prostageListeStagesParNomEntreprise_QB")
+     */
+    // Récupération de la formation grâce à l'injection 
+    // de la dépendance de la Formation et l'id de la route
+    public function listeStageParNomEntrepriseQB(StageRepository $repositoryStage, $nom): Response
+    {
+        
+        $listeStages = $repositoryStage->findByEntrepriseQueryBuilder($nom);
+
+        // Envoyer la formation récupérée, à la vue chargée de l'afficher
+        return $this->render('prostage/listeStages.html.twig',['listeStages' => $listeStages]);
+    }
+
+
     
 }
