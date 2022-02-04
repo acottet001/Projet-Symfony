@@ -14,6 +14,13 @@ use App\Repository\EntrepriseRepository;
 use App\Repository\FormationRepository;
 use App\Repository\StageRepository;
 
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
+
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+
+
 class ProStageController extends AbstractController
 {
     /**
@@ -128,6 +135,63 @@ class ProStageController extends AbstractController
         return $this->render('prostage/listeStages.html.twig',['listeStages' => $listeStages]);
     }
 
+    /**
+     * @Route("/ajouter/entreprise", name="prostage_ajouterUneEntreprise")
+     */
+    public function ajouterUneEntreprise(Request $requeteHTTP,EntityManagerInterface $manager): Response
+    {
+        $uneEntreprise = new Entreprise();
+        $formulaireEntreprise = $this->createFormBuilder($uneEntreprise)
+                                     ->add('nom')
+                                     ->add('activite')
+                                     ->add('adresse')
+                                     ->add('urlSiteWeb')
+                                     //->add('stages')
+                                     ->add('enregistrer', SubmitType::class)
+                                     ->getForm();
 
+        $vueFormulaireEntreprise = $formulaireEntreprise->createView();
+
+        $formulaireEntreprise->handleRequest($requeteHTTP);
+        if($formulaireEntreprise->isSubmitted())
+        {
+            $manager->persist($uneEntreprise);
+            $manager->flush();
+
+            return $this->redirectToRoute('prostage_accueil_du_site');
+        }
+
+        // Envoyer la formation récupérée, à la vue chargée de l'afficher
+        return $this->render('prostage/ajoutEntreprise.html.twig',['vueFormulaireEntreprise' => $vueFormulaireEntreprise]);
+    }
     
+    /**
+     * @Route("/modifier/entreprise/{idEntreprise}", name="prostage_modifierUneEntreprise")
+     */
+    public function modifierUneEntreprise(EntrepriseRepository $repositoryEntreprise,Request $requeteHTTP,EntityManagerInterface $manager,$idEntreprise): Response
+    {
+        $entreprise = $repositoryEntreprise->find($idEntreprise);
+        $formulaireEntreprise = $this->createFormBuilder($entreprise)
+                                     ->add('nom')
+                                     ->add('activite')
+                                     ->add('adresse')
+                                     ->add('urlSiteWeb')
+                                     //->add('stages')
+                                     ->add('enregistrer', SubmitType::class)
+                                     ->getForm();
+
+        $vueFormulaireEntreprise = $formulaireEntreprise->createView();
+
+        $formulaireEntreprise->handleRequest($requeteHTTP);
+        if($formulaireEntreprise->isSubmitted())
+        {
+            $manager->persist($uneEntreprise);
+            $manager->flush();
+
+            return $this->redirectToRoute('prostage_accueil_du_site');
+        }
+
+        // Envoyer la formation récupérée, à la vue chargée de l'afficher
+        return $this->render('prostage/ajoutEntreprise.html.twig',['vueFormulaireEntreprise' => $vueFormulaireEntreprise]);
+    }
 }

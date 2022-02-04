@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block titre %}
+    Ajouter une entreprise
+{% endblock %}
+
+{% block body %}
+
+    {{form_start(vueFormulaireEntreprise)}}
+        {{form_row(vueFormulaireEntreprise.nom,{"attr":{"class":"form-control"}})}}
+        <br>
+        {{form_row(vueFormulaireEntreprise.activite,{"attr":{"class":"form-control"}})}}
+        <br>
+        {{form_row(vueFormulaireEntreprise.adresse,{"attr":{"class":"form-control"}})}}
+        <br>
+        {{form_row(vueFormulaireEntreprise.urlSiteWeb,{"attr":{"class":"form-control"}})}}
+        <br>
+        {{form_row(vueFormulaireEntreprise.enregistrer,{"attr":{"class":"form-control"}})}}
+    {{form_end(vueFormulaireEntreprise)}}
+
+{% endblock %}

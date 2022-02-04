@@ -54,8 +54,6 @@ class StageRepository extends ServiceEntityRepository
                     ->select('s,e')
                     ->getQuery()
                     ->getResult();
-
-
         return $requete->execute();
     }
     // /**
