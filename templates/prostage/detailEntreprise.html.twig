@@ -2,7 +2,7 @@
 
 {% block titre %}
     {{entreprise.nom}}
-    <a href="{{path('prostage_modifierUneEntreprise' , {'idEntreprise' : entreprise.id}) }}" class="btn btn-primary">Modifier</a>
+    <a href="{{path('prostage_modifierUneEntreprise_parNom' , {'nomEntreprise' : entreprise.nom}) }}" class="btn btn-primary">Modifier</a>
 {% endblock %}
 
 {% block attribut %}

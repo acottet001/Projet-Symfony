@@ -150,10 +150,9 @@ class ProStageController extends AbstractController
                                      ->add('enregistrer', SubmitType::class)
                                      ->getForm();
 
-        $vueFormulaireEntreprise = $formulaireEntreprise->createView();
-
+    
         $formulaireEntreprise->handleRequest($requeteHTTP);
-        if($formulaireEntreprise->isSubmitted())
+        if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise->isValid())
         {
             $manager->persist($uneEntreprise);
             $manager->flush();
@@ -161,17 +160,20 @@ class ProStageController extends AbstractController
             return $this->redirectToRoute('prostage_accueil_du_site');
         }
 
+        $vueFormulaireEntreprise = $formulaireEntreprise->createView();
+
         // Envoyer la formation récupérée, à la vue chargée de l'afficher
         return $this->render('prostage/ajoutEntreprise.html.twig',['vueFormulaireEntreprise' => $vueFormulaireEntreprise]);
     }
     
     /**
-     * @Route("/modifier/entreprise/{idEntreprise}", name="prostage_modifierUneEntreprise")
+     * @Route("/modifier/entreprise/{nomEntreprise}", name="prostage_modifierUneEntreprise_parNom")
      */
-    public function modifierUneEntreprise(EntrepriseRepository $repositoryEntreprise,Request $requeteHTTP,EntityManagerInterface $manager,$idEntreprise): Response
+    public function modifierUneEntreprise(EntrepriseRepository $repositoryEntreprise,Request $requeteHTTP,EntityManagerInterface $manager,$nomEntreprise): Response
     {
-        $entreprise = $repositoryEntreprise->find($idEntreprise);
-        $formulaireEntreprise = $this->createFormBuilder($entreprise)
+        $uneEntreprise = $repositoryEntreprise->findOneBy(['nom' => $nomEntreprise]);
+
+        $formulaireEntreprise = $this->createFormBuilder($uneEntreprise)
                                      ->add('nom')
                                      ->add('activite')
                                      ->add('adresse')
@@ -183,7 +185,7 @@ class ProStageController extends AbstractController
         $vueFormulaireEntreprise = $formulaireEntreprise->createView();
 
         $formulaireEntreprise->handleRequest($requeteHTTP);
-        if($formulaireEntreprise->isSubmitted())
+        if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise->isValid())
         {
             $manager->persist($uneEntreprise);
             $manager->flush();
