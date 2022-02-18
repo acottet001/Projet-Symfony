@@ -35,11 +35,15 @@ class Entreprise
 
     /**
      * @ORM\Column(type="string", length=200)
+     * @Assert\Regex(pattern = "#^[1-9][0-9]{0,2}( ?bis)? #", message = "Le numéro de rue semble incorrect.")
+     * @Assert\Regex(pattern = "#rue|avenue|boulevard|impasse|allée|place|route|voie#i", message = "Le type de route/voie semble incorrect.")
+     * @Assert\Regex(pattern = "# [0-9]{5} #", message = "il semble y avoir un problème avec le code postal.")
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=200)
+     * @Assert\NotBlank
      * @Assert\Url(message="Cette valeur n'est pas une URL valide")
      */
     private $urlSiteWeb;

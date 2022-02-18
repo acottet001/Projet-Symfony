@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block titre %}
+    Ajouter une entreprise
+{% endblock %}
+
+{% block body %}
+
+    {{form_start(vueFormulaireStage,{"attr":{'novalidate':'novalidate'}})}}
+
+    {{form_end(vueFormulaireStage)}}
+{% endblock %}

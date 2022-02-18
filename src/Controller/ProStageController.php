@@ -14,11 +14,13 @@ use App\Repository\EntrepriseRepository;
 use App\Repository\FormationRepository;
 use App\Repository\StageRepository;
 
+use App\Form\EntrepriseType;
+use App\Form\StageType;
+
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
 
 
 class ProStageController extends AbstractController
@@ -141,15 +143,7 @@ class ProStageController extends AbstractController
     public function ajouterUneEntreprise(Request $requeteHTTP,EntityManagerInterface $manager): Response
     {
         $uneEntreprise = new Entreprise();
-        $formulaireEntreprise = $this->createFormBuilder($uneEntreprise)
-                                     ->add('nom')
-                                     ->add('activite')
-                                     ->add('adresse')
-                                     ->add('urlSiteWeb')
-                                     //->add('stages')
-                                     ->add('enregistrer', SubmitType::class)
-                                     ->getForm();
-
+        $formulaireEntreprise = $this->createForm(EntrepriseType::class, $uneEntreprise);
     
         $formulaireEntreprise->handleRequest($requeteHTTP);
         if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise->isValid())
@@ -157,7 +151,7 @@ class ProStageController extends AbstractController
             $manager->persist($uneEntreprise);
             $manager->flush();
 
-            return $this->redirectToRoute('prostage_accueil_du_site');
+            return $this->redirectToRoute('prostage_detail_entreprise_par_id',['id' =>$uneEntreprise->getId()]);
         }
 
         $vueFormulaireEntreprise = $formulaireEntreprise->createView();
@@ -165,6 +159,8 @@ class ProStageController extends AbstractController
         // Envoyer la formation récupérée, à la vue chargée de l'afficher
         return $this->render('prostage/ajoutEntreprise.html.twig',['vueFormulaireEntreprise' => $vueFormulaireEntreprise]);
     }
+
+
     
     /**
      * @Route("/modifier/entreprise/{nomEntreprise}", name="prostage_modifierUneEntreprise_parNom")
@@ -172,28 +168,44 @@ class ProStageController extends AbstractController
     public function modifierUneEntreprise(EntrepriseRepository $repositoryEntreprise,Request $requeteHTTP,EntityManagerInterface $manager,$nomEntreprise): Response
     {
         $uneEntreprise = $repositoryEntreprise->findOneBy(['nom' => $nomEntreprise]);
-
-        $formulaireEntreprise = $this->createFormBuilder($uneEntreprise)
-                                     ->add('nom')
-                                     ->add('activite')
-                                     ->add('adresse')
-                                     ->add('urlSiteWeb')
-                                     //->add('stages')
-                                     ->add('enregistrer', SubmitType::class)
-                                     ->getForm();
-
-        $vueFormulaireEntreprise = $formulaireEntreprise->createView();
-
+        $formulaireEntreprise = $this->createForm(EntrepriseType::class, $uneEntreprise);
+        
         $formulaireEntreprise->handleRequest($requeteHTTP);
         if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise->isValid())
         {
             $manager->persist($uneEntreprise);
             $manager->flush();
 
-            return $this->redirectToRoute('prostage_accueil_du_site');
+            return $this->redirectToRoute('prostage_detail_entreprise_par_id',['id' =>$uneEntreprise->getId()]);
         }
+
+        $vueFormulaireEntreprise = $formulaireEntreprise->createView();
 
         // Envoyer la formation récupérée, à la vue chargée de l'afficher
         return $this->render('prostage/ajoutEntreprise.html.twig',['vueFormulaireEntreprise' => $vueFormulaireEntreprise]);
+    }
+
+    /**
+     * @Route("/ajouter/stage", name="prostage_ajouterUnStage")
+     */
+    public function ajouterUnStage(Request $requeteHTTP,EntityManagerInterface $manager): Response
+    {
+        $unStage = new Stage();
+        $formulaireStage = $this->createForm(StageType::class, $unStage);
+    
+        $formulaireStage->handleRequest($requeteHTTP);
+        if($formulaireStage->isSubmitted() && $formulaireStage->isValid())
+        {
+            $manager->persist($unStage);
+            $manager->persist($unStage->getEntreprise());
+            $manager->flush();
+
+            return $this->redirectToRoute('prostage_detail_stage_par_id',['id' =>$unStage->getId()]);
+        }
+
+        $vueFormulaireStage = $formulaireStage->createView();
+
+        // Envoyer la formation récupérée, à la vue chargée de l'afficher
+        return $this->render('prostage/ajoutStage.html.twig',['vueFormulaireStage' => $vueFormulaireStage]);
     }
 }
