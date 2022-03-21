@@ -29,8 +29,23 @@
                                 <a href="{{path('prostage_liste_des_stages') }}" class="btn btn-primary">Stages</a>
                                 <br>
                                 Ajouter :
-                                <a href="{{path('prostage_ajouterUneEntreprise') }}" class="btn btn-primary">Entreprise</a>
-                                <a href="{{path('prostage_ajouterUnStage') }}" class="btn btn-primary">Stage</a>
+                                
+                                
+                                {% if app.user %}
+                                   <a href="{{path('app_logout') }}" class="btn btn-primary">Se déconnecter</a>
+                                {% else %}
+                                    <a href="{{path('app_login') }}" class="btn btn-primary">Se connecter</a>
+                                {% endif %}
+
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{path('prostage_ajouterUneEntreprise') }}" class="btn btn-primary">Entreprise</a>
+                                    <a href="{{path('prostage_ajouterUnStage') }}" class="btn btn-primary">Stage</a>
+                                {% elseif is_granted('ROLE_USER') %}
+                                    <a href="{{path('prostage_ajouterUneEntreprise') }}" class="btn btn-primary">Entreprise</a>
+                                    User
+                                {% else %}
+                                    Anonymous
+                                {% endif %}
                             </div>
                             <div class="card-body">
                                 {% block body %}

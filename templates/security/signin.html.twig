@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block titre %}
+    Ajouter une entreprise
+{% endblock %}
+
+{% block body %}
+
+    {{form_start(vueFormulaireUtilisateur,{"attr":{'novalidate':'novalidate'}})}}
+        {{form_row(vueFormulaireUtilisateur.nom,{"attr":{"class":"form-control"}})}}
+        <br>
+        {{form_row(vueFormulaireUtilisateur.prenom,{"attr":{"class":"form-control"}})}}
+        <br>
+        {{form_row(vueFormulaireUtilisateur.email,{"attr":{"class":"form-control"}})}}
+        <br>
+        {{form_row(vueFormulaireUtilisateur.password,{"attr":{"class":"form-control","type":"password"}})}}
+        <br>
+        <input type="submit" value="S'inscrire">
+    {{form_end(vueFormulaireUtilisateur)}}
+
+{% endblock %}
